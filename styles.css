@@ -1,3 +1,17 @@
+
+root {
+  --color-1: #F08D7E; 
+  --color2: #EFA18A;
+  --color3: #E2BAB1;
+  --color4: #DDA6B9;
+  --color5: #ACAEC5;
+  --color6: #E3826F;
+  --color7: #E4A9A4;
+  --color8: #EFBA97;
+  --color9: #F1CCBB;
+  --color10: #E7D5C7; 
+}
+
 body {
   background-color: #61305D;
   color: #fff;
