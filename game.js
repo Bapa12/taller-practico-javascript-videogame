@@ -4,6 +4,7 @@ const btnUp = document.querySelector('#up');
 const btnLeft = document.querySelector('#left');
 const btnRight = document.querySelector('#right');
 const btnDown = document.querySelector('#down');
+const spanLives = document.querySelector('#lives');
 
 let canvasSize;
 let elementsSize;
@@ -14,7 +15,6 @@ const playerPosition = {
   x: undefined,
   y: undefined,
 };
-
 const giftPosition = {
   x: undefined,
   y: undefined,
@@ -56,6 +56,8 @@ function startGame() {
   const mapRows = map.trim().split('\n');
   const mapRowCols = mapRows.map(row => row.trim().split(''));
   console.log({map, mapRows, mapRowCols});
+
+  showLives();
 
   enemiesPosition = [];  
   game.clearRect(0,0,canvasSize, canvasSize);
@@ -125,6 +127,7 @@ console.log(lives);
 
   if (lives <= 0) {
     level = 0;
+    lives = 3;
   }
 
   playerPosition.x = undefined;
@@ -134,6 +137,14 @@ console.log(lives);
 
 function gameWon() {
   console.log('¡Ganaste 🏆!');
+}
+
+function showLives() {
+  const heartsArray = Array(lives).fill(emojis['HEART']);
+  console.log(heartsArray);
+
+  spanLives.innerHTML = "";
+  heartsArray.forEach(heart => spanLives.append(heart));
 }
 
 window.addEventListener('keydown', moveByKeys);
