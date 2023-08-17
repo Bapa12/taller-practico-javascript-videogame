@@ -10,13 +10,15 @@ let elementsSize;
 
 const playerPosition = {
   x: undefined,
-  y: undefined
+  y: undefined,
 };
 
 const giftPosition = {
   x: undefined,
   y: undefined,
 };
+
+let enemiesPosition = [];
 
 window.addEventListener('load', setCanvasSize);
 window.addEventListener('resize', setCanvasSize);
@@ -42,12 +44,14 @@ function startGame() {
   game.font = elementsSize + 'px Verdana';
   game.textAlign = 'end';
 
-  const map = maps[2];
+  const map = maps[0];
   const mapRows = map.trim().split('\n');
   const mapRowCols = mapRows.map(row => row.trim().split(''));
   console.log({map, mapRows, mapRowCols});
 
+  enemiesPosition = [];  
   game.clearRect(0,0,canvasSize, canvasSize);
+
   mapRowCols.forEach((row, rowI) => {
     row.forEach((col, colI) => {
       const emoji = emojis[col];
@@ -63,6 +67,11 @@ function startGame() {
       } else if (col == 'I') {
         giftPosition.x = posX;
         giftPosition.y = posY;
+      } else if (col == 'X') {
+        enemiesPosition.push({
+          x: posX,
+          y: posY,
+        });
       }
 
       game.fillText(emoji, posX, posY);
@@ -79,6 +88,16 @@ function movePlayer() {
 
   if (giftCollision) {
     console.log('Subiste de nivel!');
+  }
+
+  const enemyCollision = enemiesPosition.find(enemy => {
+    const enemyCollisionX = enemy.x.toFixed(3) == playerPosition.x.toFixed(3);
+    const enemyCollisionY = enemy.y.toFixed(3) == playerPosition.y.toFixed(3);
+    return enemyCollisionX && enemyCollisionY;
+  });
+
+  if (enemyCollision) {
+    console.log('Chocaste contra un enemigo 😵!');
   }
 
   game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y);
@@ -101,7 +120,7 @@ function moveUp() {
   console.log('Me quiero mover hacia arriba');
 
   if ((playerPosition.y - elementsSize) < elementsSize) {
-    console.log('Out!');
+    console.log('Out 🚧!');
   } else {
     playerPosition.y -= elementsSize;
     startGame();
@@ -111,7 +130,7 @@ function moveUp() {
 function moveLeft() {
   console.log('Me quiero mover hacia la izquierda');
   if ((playerPosition.x - elementsSize) < elementsSize) {
-    console.log('Out!');
+    console.log('Out 🚧!');
   } else {
     playerPosition.x -= elementsSize;
     startGame();
@@ -121,7 +140,7 @@ function moveLeft() {
 function moveRight() {
   console.log('Me quiero mover hacia la derecha');
   if ((playerPosition.x + elementsSize) > (canvasSize + 10)) {
-    console.log('Out');
+    console.log('Out 🚧');
   } else {
     playerPosition.x += elementsSize;
     startGame();
@@ -131,7 +150,7 @@ function moveRight() {
 function moveDown() {
   console.log('Me quiero mover hacia abajo');
   if ((playerPosition.y + elementsSize) > canvasSize) {
-    console.log('Out');
+    console.log('Out 🚧');
   } else {
     playerPosition.y += elementsSize;
     startGame();
