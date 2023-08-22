@@ -34,7 +34,7 @@ let enemiesPosition = [];
 
 window.addEventListener('load', setCanvasSize);
 window.addEventListener('resize', setCanvasSize);
-reload.addEventListener('click', reiniciar);
+reload.addEventListener('click', restart);
 
 // function fixNumber(n) {
 //   return Number(n.toFixed(0));
@@ -202,7 +202,7 @@ function showRecord(){
   spanRecord.innerHTML = localStorage.getItem('record_time');
 }
 
-function reiniciar() {
+function restart() {
   location.reload();
 }
 
