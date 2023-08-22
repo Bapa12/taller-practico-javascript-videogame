@@ -8,6 +8,7 @@ const spanLives = document.querySelector('#lives');
 const spanTime = document.querySelector('#time');
 const spanRecord = document.querySelector('#record');
 const pResult = document.querySelector('#result');
+const reload = document.querySelector('#reload');
 
 let canvasSize;
 let elementsSize;
@@ -17,6 +18,8 @@ let lives = 3;
 let timeStart;
 let timePlayer;
 let timeInterval;
+let recordTime;
+let playerTime;
 
 const playerPosition = {
   x: undefined,
@@ -31,6 +34,7 @@ let enemiesPosition = [];
 
 window.addEventListener('load', setCanvasSize);
 window.addEventListener('resize', setCanvasSize);
+reload.addEventListener('click', reiniciar);
 
 // function fixNumber(n) {
 //   return Number(n.toFixed(0));
@@ -59,7 +63,7 @@ function startGame() {
   console.log({canvasSize, elementsSize});
   // console.log(window.innerWidth, window.innerHeight);
 
-  game.font = elementsSize + 'px Verdana';
+  game.font = (elementsSize - 4) + 'px Verdana';
   game.textAlign = 'end';
 
   const map = maps[level];
@@ -149,7 +153,7 @@ function levelFailed() {
   if (lives <= 0) {
     level = 0;
     lives = 3;
-    timeStart = undefined;
+    timeStart;
   }
 
   playerPosition.x = undefined;
@@ -158,7 +162,10 @@ function levelFailed() {
 }
 
 function gameWon() {
-  console.log('¡Ganaste 🏆!');
+  const modal = document.querySelector('#modal');
+  modal.classList.remove('invisible');
+  modal.style.display = 'block';
+
   clearInterval(timeInterval);
   
   const recordTime = localStorage.getItem('record_time');
@@ -193,6 +200,10 @@ function showTime(){
 
 function showRecord(){
   spanRecord.innerHTML = localStorage.getItem('record_time');
+}
+
+function reiniciar() {
+  location.reload();
 }
 
 window.addEventListener('keydown', moveByKeys);

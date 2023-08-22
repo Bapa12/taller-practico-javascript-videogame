@@ -57,6 +57,10 @@ button:not(:last-child) {
   margin-right: 10px;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 .messages {
   display: flex;
   flex-wrap: wrap;
@@ -69,6 +73,26 @@ p {
   display: block;
   margin: 0;
   width: 100%;
+}
+
+.invisible {
+  display: none;
+}
+
+#modal {
+  width: min-content;
+  max-width: 320px;
+  position: absolute;
+  top: 15%;
+  background-color: indigo;
+  padding: 50px;
+  border-radius: 15px;
+  text-align: center;
+  z-index: 1;
+}
+
+#reload {
+  margin-top: 30px;
 }
 
 @media (max-width: 440px) {
